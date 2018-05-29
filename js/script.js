@@ -1,6 +1,5 @@
 var canvas = $("#canvas");
 var topmiddle = $(".top.middle");
-var x = 0;
 
 $(function(){
     var time = 1;
@@ -18,17 +17,20 @@ $(function(){
             "images/pedra5.png",
             "images/pedra6.png",
         ]
-
-        x += 10;
-
         var img = $("<img width=50 height=50 src='" + imgs[Math.floor(imgs.length*Math.random())] + "' class='img' />");
-        img.css("top", x);
+
+        var x = Math.floor(topmiddle.width()*Math.random());
+        var y = Math.floor(topmiddle.height()*Math.random());
+
+        img.css("top", y);
+        img.css("left", x);
         topmiddle.append(img);
 
     }, 200)
     
 });
 
+//game loop - unusual for now
 /*
 let lastTime;
 
