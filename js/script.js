@@ -1,6 +1,14 @@
-$(function(){
-    $('#text').text("Carregado!");
+var canvas = $("#canvas");
+var topmiddle = $(".top.middle");
+var x = 0;
 
+$(function(){
+    var time = 1;
+
+    var time = setInterval(function(){
+        $(".top.left").text("Tempo de Jogo: " + time++ + " segundos");
+    }, 1000);
+    
     setInterval(function(){
         var imgs = [
             "images/pedra1.png",
@@ -8,13 +16,32 @@ $(function(){
             "images/pedra3.png",
             "images/pedra4.png",
             "images/pedra5.png",
-            "images/pedra6.png"
+            "images/pedra6.png",
         ]
 
-        var x = Math.floor(imgs.length*Math.random());
+        x += 10;
 
-        var img = "<img src=" + imgs[x] + " width=50px height=50px>";
+        var img = $("<img width=50 height=50 src='" + imgs[Math.floor(imgs.length*Math.random())] + "' class='img' />");
+        img.css("top", x);
+        topmiddle.append(img);
 
-        $('.top.middle').append(img);
-    }, 3000);
+    }, 200)
+    
 });
+
+/*
+let lastTime;
+
+function callback(millis){
+    if(lastTime){
+        update((millis - lastTime) / 1000);
+    }
+    lastTime = millis;
+    requestAnimationFrame(callback);
+}
+
+function update(dt){
+    canvas.height(topmiddle.height());
+    canvas.width(topmiddle.width());  
+}
+*/

@@ -10,7 +10,7 @@ html{
 #main{
     display: grid;
     grid-template-columns: 20% auto 20%;
-    grid-template-rows: auto auto;
+    grid-template-rows: 50% 50%;
     height: 100%;
 }
 
@@ -23,6 +23,7 @@ html{
 }
 
 .middle{
+    position: relative;
     grid-column: 2;
 }
 
@@ -34,4 +35,10 @@ html{
     grid-column: 1 / 4;
     grid-row: 2;
     background: #5C3317;
+}
+
+.img{
+    position: absolute;
+    top: 20px;
+    left: 50px;
 }
