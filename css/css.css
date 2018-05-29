@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    background-color: bisque
+}
+
+#main{
+    display: grid;
+    grid-template-columns: 20% auto 20%;
+    grid-template-rows: auto auto;
+    height: 100%;
+}
+
+.top{
+    background: #007FFF;
+}
+
+.left{
+    grid-column: 1;
+}
+
+.middle{
+    grid-column: 2;
+}
+
+.right{
+    grid-column: 3;
+}
+
+.bottom{
+    grid-column: 1 / 4;
+    grid-row: 2;
+    background: #5C3317;
+}
