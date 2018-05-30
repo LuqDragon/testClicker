@@ -4,14 +4,16 @@ var topright = $(".top.right");
 var x, y, p = 0, s = 0;
 var img;
 var controlPedra = 0, controlGraveto = 0;
+var time = 1;
 
 $(function(){
-    var time = 1;
-
+   
+    //Tempo
     var time = setInterval(function(){
-        $(".top.left").text("Tempo de Jogo: " + time++ + " segundos");
+        $("#tempo").text("Tempo de Jogo: " + time++ + " segundos");
     }, 1000);
     
+    //Geração de pedras e evento de click
     var pedras = setInterval(function(){
         var imgs = [
             "images/pedra1.png",
@@ -46,8 +48,9 @@ $(function(){
 
     }, 2000)
 
+    //Geração de gravetos e evento de click
     var graveto = setInterval(function(){
-        var img = $("<img width=70 height=50 src='images/stick.png' class='img' />");
+        var img = $("<img src='images/stick.png' class='img' />");
 
         x = Math.floor(Math.random() * ((topmiddle.width() - 150) - 100) + 100);
         y = Math.floor(Math.random() * ((topmiddle.height() - 75) - 50) + 50);
