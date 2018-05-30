@@ -32,10 +32,12 @@ $(function(){
         img.addClass("animated bounceIn");
         img.click(function(){
             p++;
-            topright.text("Pedras: " + p);
-            img.removeClass("animated bounceIn").addClass("animated bounceOut");
-            img.addClass('animated ')
-            img.remove();
+            img.removeClass("animated bounceIn")
+            .addClass("animated bounceOut")
+            .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
+                img.remove();
+                topright.text("Pedras: " + p);
+            });
         });
 
     }, 2000)
