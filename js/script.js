@@ -29,10 +29,12 @@ $(function(){
         img.css("top", (y - img.height()));
         img.css("left", (x - img.width()));
         topmiddle.append(img);
-        img.addClass('animated bounceIn');
+        img.addClass("animated bounceIn");
         img.click(function(){
             p++;
             topright.text("Pedras: " + p);
+            img.removeClass("animated bounceIn").addClass("animated bounceOut");
+            img.addClass('animated ')
             img.remove();
         });
 
