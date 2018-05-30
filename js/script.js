@@ -1,5 +1,9 @@
 var canvas = $("#canvas");
 var topmiddle = $(".top.middle");
+var topright = $(".top.right");
+var x = 0;
+var y = 0;
+var p = 0;
 
 $(function(){
     var time = 1;
@@ -19,14 +23,19 @@ $(function(){
         ]
         var img = $("<img width=50 height=50 src='" + imgs[Math.floor(imgs.length*Math.random())] + "' class='img' />");
 
-        var x = Math.floor(topmiddle.width()*Math.random());
-        var y = Math.floor(topmiddle.height()*Math.random());
+        var x = Math.floor(Math.random() * ((topmiddle.width() - 150) - 100) + 100);
+        var y = Math.floor(Math.random() * ((topmiddle.height() - 75) - 50) + 50);
 
-        img.css("top", y);
-        img.css("left", x);
+        img.css("top", (y - img.height()));
+        img.css("left", (x - img.width()));
         topmiddle.append(img);
+        img.click(function(){
+            p++;
+            topright.text("Pedras: " + p);
+            img.remove();
+        });
 
-    }, 200)
+    }, 2000)
     
 });
 
