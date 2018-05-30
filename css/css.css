@@ -20,6 +20,7 @@ html{
 
 .left{
     grid-column: 1;
+    position: relative;
 }
 
 .middle{
@@ -53,4 +54,40 @@ html{
 
 .textOverMouse{
     position: absolute;
+    user-select: none;
+    pointer-events: none;
+}
+
+#pickButton{
+    position: absolute;
+    background-color: darkgray;
+    border: none;
+    color: black;
+    padding: 5%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    top: 60px;
+    white-space: normal;
+    width: 200px;
+}
+
+#axeButton{
+    position: absolute;
+    background-color: darkgray;
+    border: none;
+    color: black;
+    padding: 5%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    top: 160px;
+    white-space: normal;
+    width: 200px;
+}
+
+.information{
+    font-size: 15px;
 }

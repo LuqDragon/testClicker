@@ -1,20 +1,28 @@
 var canvas = $("#canvas");
 var topmiddle = $(".top.middle");
 var topright = $(".top.right");
-var x, y, p = 0, s = 0;
+var x, y, p = 0, s = 0, pickaxes = 0, axes = 0;
 var img;
 var controlPedra = 0, controlGraveto = 0;
 var time = 1;
+var pickButton = $("#pickButton");
+var sps = 0, pps = 0;
+var axeButton = $("#axeButton");
 
 $(function(){
    
     //Tempo
     var time = setInterval(function(){
         $("#tempo").text("Tempo de Jogo: " + time++ + " segundos");
+        p += pps;
+        s += sps;
+
+        $("#pedras").text("Pedras: " + p)
+        $("#gravetos").text("Gravetos: " + s);
     }, 1000);
     
     //Geração de pedras e evento de click
-    var pedras = setInterval(function(){
+    var pedraGenerator = setInterval(function(){
         var imgs = [
             "images/pedra1.png",
             "images/pedra2.png",
@@ -60,7 +68,7 @@ $(function(){
     }, 2000)
 
     //Geração de gravetos e evento de click
-    var graveto = setInterval(function(){
+    var gravetoGenerator = setInterval(function(){
         var img = $("<img src='images/stick.png' class='img' />");
 
         //determina a distribuiçao dos elementos na tela
@@ -96,7 +104,29 @@ $(function(){
         });
 
     }, 2500);
-    
+
+    pickButton.on("click", function(){
+        if(p >= 2 && s >= 3){
+            pps++;
+            pickaxes++;
+            p -= 2;
+            s -= 3;
+            
+            $("#countPicks").text("Pickaxes: " + pickaxes)
+        }
+    });
+
+    axeButton.on('click', function(){
+        if(p >= 1 && s >= 3){
+            sps++;
+            axes++;
+            p -= 1;
+            s -= 3;
+
+            $("#countAxes").text("Axes: " + axes);
+        }
+    });
+
 });
 
 //game loop - unusual for now
