@@ -8,6 +8,7 @@ var time = 1;
 var pickButton = $("#pickButton");
 var sps = 0, pps = 0;
 var axeButton = $("#axeButton");
+var topleft = $(".top.left");
 
 $(function(){
    
@@ -19,6 +20,11 @@ $(function(){
 
         $("#pedras").text("Pedras: " + p)
         $("#gravetos").text("Gravetos: " + s);
+
+        if(pickaxes > 0 && axes > 0){
+            clearInterval(pedraGenerator);
+            clearInterval(gravetoGenerator);
+        }
     }, 1000);
     
     //Geração de pedras e evento de click
@@ -105,6 +111,7 @@ $(function(){
 
     }, 2500);
 
+    //Pickaxes and stone per second add
     pickButton.on("click", function(){
         if(p >= 2 && s >= 3){
             pps++;
@@ -116,6 +123,33 @@ $(function(){
         }
     });
 
+    //Description of pickaxes
+    pickButton.hover(function(){
+        var description = $("<p class='description animated fadeIn'>Add 1 stone per second per pickaxe!</p>");
+        topleft.append(description);
+    }, function(){
+        var description = $(".description.animated.fadeIn");
+        description.removeClass("fadeIn")
+        .addClass("fadeOut")
+        .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
+            description.remove();
+        });
+    });
+
+    //Description of axes
+    axeButton.hover(function(){
+        var description = $("<p class='description animated fadeIn'>Add 1 stick per second per axe!</p>");
+        topleft.append(description);
+    }, function(){
+        var description = $(".description.animated.fadeIn");
+        description.removeClass("fadeIn")
+        .addClass("fadeOut")
+        .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
+            description.remove();
+        });
+    });
+        
+    //Axes and sticks per second add
     axeButton.on('click', function(){
         if(p >= 1 && s >= 3){
             sps++;

@@ -88,6 +88,17 @@ html{
     width: 200px;
 }
 
+.description{
+    position: absolute;
+}
+.description.animated.fadeIn{
+    animation-duration: 1s;
+}
+
+.description.animated.fadeOut{
+    animation-duration: 0.5s;
+}
+
 .information{
     font-size: 15px;
 }
