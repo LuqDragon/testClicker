@@ -50,3 +50,7 @@ html{
 .img.animated.bounceOut{
     animation-duration: 0.5s;
 }
+
+.textOverMouse{
+    position: absolute;
+}

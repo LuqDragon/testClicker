@@ -23,8 +23,9 @@ $(function(){
             "images/pedra5.png",
             "images/pedra6.png",
         ]
-        var img = $("<img width=50 height=50 src='" + imgs[Math.floor(imgs.length*Math.random())] + "' class='img' />");
+        var img = $("<img src='" + imgs[Math.floor(imgs.length*Math.random())] + "' class='img' />");
 
+        //determina a distribuição dos elementos na tela
         x = Math.floor(Math.random() * ((topmiddle.width() - 150) - 100) + 100);
         y = Math.floor(Math.random() * ((topmiddle.height() - 75) - 50) + 50);
 
@@ -36,12 +37,22 @@ $(function(){
             if(controlPedra == 0){
                 controlPedra++;
                 p++;
+                $("#pedras").text("Pedras: " + p);
+                var text = $("<p class='textOverMouse'>+1 Pedra</p>");
+                    text.css("top", parseInt(img.css("top"), 10) - img.height()/2)
+                    .css("left", img.css("left"));
+                    topmiddle.append(text);
+                    text.addClass("animated fadeInUp")
+                    .removeClass("fadeInUp")
+                    .addClass("fadeOutUp")
+                    .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
+                        text.remove();
+                    });
                 img.removeClass("animated bounceIn")
                 .addClass("animated bounceOut")
                 .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
-                    img.remove();
-                    $("#pedras").text("Pedras: " + p);
                     controlPedra = 0;
+                    img.remove();
                 });
             }
         });
@@ -52,6 +63,7 @@ $(function(){
     var graveto = setInterval(function(){
         var img = $("<img src='images/stick.png' class='img' />");
 
+        //determina a distribuiçao dos elementos na tela
         x = Math.floor(Math.random() * ((topmiddle.width() - 150) - 100) + 100);
         y = Math.floor(Math.random() * ((topmiddle.height() - 75) - 50) + 50);
 
@@ -63,11 +75,21 @@ $(function(){
             if(controlGraveto == 0){
                 controlGraveto++;
                 s++;
+                $("#gravetos").text("Gravetos: " + s);
+                var text = $("<p class='textOverMouse'>+1 Graveto</p>");
+                    text.css("top", parseInt(img.css("top"), 10) - img.height()/2)
+                    .css("left", img.css("left"));
+                    topmiddle.append(text);
+                    text.addClass("animated fadeInUp")
+                    .removeClass("fadeInUp")
+                    .addClass("fadeOutUp")
+                    .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
+                        text.remove();
+                    });
                 img.removeClass("animated bounceIn")
                 .addClass("animated bounceOut")
                 .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
                     img.remove();
-                    $("#gravetos").text("Gravetos: " + s);
                     controlGraveto = 0;
                 });
             }
