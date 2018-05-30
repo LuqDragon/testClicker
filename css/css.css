@@ -42,3 +42,11 @@ html{
 .img{
     position: absolute;
 }
+
+.img.animated.bounceIn{
+    animation-duration: 2s;
+}
+
+.img.animated.bounceOut{
+    animation-duration: 0.5s;
+}
