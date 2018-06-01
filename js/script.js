@@ -9,22 +9,33 @@ var pickButton = $("#pickButton");
 var sps = 0, pps = 0;
 var axeButton = $("#axeButton");
 var topleft = $(".top.left");
+var strings = [];
 
 $(function(){
-   
+
+    callback();
+
+    //Carregar o arquivo xml com todas as strings
+    //colocando na array strings[] 
+    $.ajax({
+        type: "GET",
+        url: "strings.xml",
+        dataType: "xml",
+        success: function(xml){
+            var result = $(xml).find("text").each(function(){
+                var string = {"name": $(this).attr("name"), "text": $(this).text()}
+                strings.push(string);
+            });
+        },
+        error:  function(error1, error2, error3){
+            console.log(error3);
+        }
+    });
+
     //Tempo
     var time = setInterval(function(){
-        $("#tempo").text("Tempo de Jogo: " + time++ + " segundos");
-        p += pps;
-        s += sps;
-
-        $("#pedras").text("Pedras: " + p)
-        $("#gravetos").text("Gravetos: " + s);
-
-        if(pickaxes > 0 && axes > 0){
-            clearInterval(pedraGenerator);
-            clearInterval(gravetoGenerator);
-        }
+        time++
+        $("#tempo").text(valueString("time") + time + valueString("seconds"));
     }, 1000);
     
     //Geração de pedras e evento de click
@@ -47,30 +58,29 @@ $(function(){
         img.css("left", (x - img.width()));
         topmiddle.append(img);
         img.addClass("animated bounceIn");
+        //Pedra click
         img.on('click', function(){
-            if(controlPedra == 0){
-                controlPedra++;
-                p++;
-                $("#pedras").text("Pedras: " + p);
-                var text = $("<p class='textOverMouse'>+1 Pedra</p>");
-                    text.css("top", parseInt(img.css("top"), 10) - img.height()/2)
-                    .css("left", img.css("left"));
-                    topmiddle.append(text);
-                    text.addClass("animated fadeInUp")
-                    .removeClass("fadeInUp")
-                    .addClass("fadeOutUp")
+                if(controlPedra == 0){
+                    controlPedra++;
+                    p++;
+                    var text = $("<p class='textOverMouse'>" + valueString("popUpStone") + "</p>");
+                        text.css("top", parseInt(img.css("top"), 10) - img.height()/2)
+                        .css("left", img.css("left"));
+                        topmiddle.append(text);
+                        text.addClass("animated fadeInUp")
+                        .removeClass("fadeInUp")
+                        .addClass("fadeOutUp")
+                        .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
+                            text.remove();
+                        });
+                    img.removeClass("animated bounceIn")
+                    .addClass("animated bounceOut")
                     .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
-                        text.remove();
+                        controlPedra = 0;
+                        img.remove();
                     });
-                img.removeClass("animated bounceIn")
-                .addClass("animated bounceOut")
-                .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
-                    controlPedra = 0;
-                    img.remove();
-                });
-            }
-        });
-
+                }
+            });
     }, 2000)
 
     //Geração de gravetos e evento de click
@@ -85,86 +95,67 @@ $(function(){
         img.css("left", (x - img.width()));
         topmiddle.append(img);
         img.addClass("animated bounceIn");
+        //Graveto click
         img.on('click', function(){
-            if(controlGraveto == 0){
-                controlGraveto++;
-                s++;
-                $("#gravetos").text("Gravetos: " + s);
-                var text = $("<p class='textOverMouse'>+1 Graveto</p>");
-                    text.css("top", parseInt(img.css("top"), 10) - img.height()/2)
-                    .css("left", img.css("left"));
-                    topmiddle.append(text);
-                    text.addClass("animated fadeInUp")
-                    .removeClass("fadeInUp")
-                    .addClass("fadeOutUp")
+                if(controlGraveto == 0){
+                    controlGraveto++;
+                    s++;
+                    var text = $("<p class='textOverMouse'>" + valueString("popUpStick") +"</p>");
+                        text.css("top", parseInt(img.css("top"), 10) - img.height()/2)
+                        .css("left", img.css("left"));
+                        topmiddle.append(text);
+                        text.addClass("animated fadeInUp")
+                        .removeClass("fadeInUp")
+                        .addClass("fadeOutUp")
+                        .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
+                            text.remove();
+                        });
+                    img.removeClass("animated bounceIn")
+                    .addClass("animated bounceOut")
                     .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
-                        text.remove();
+                        img.remove();
+                        controlGraveto = 0;
                     });
-                img.removeClass("animated bounceIn")
-                .addClass("animated bounceOut")
-                .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
-                    img.remove();
-                    controlGraveto = 0;
-                });
-            }
-        });
+                }
+            });
+
 
     }, 2500);
 
-    //Pickaxes and stone per second add
-    pickButton.on("click", function(){
-        if(p >= 2 && s >= 3){
-            pps++;
-            pickaxes++;
-            p -= 2;
-            s -= 3;
-            
-            $("#countPicks").text("Pickaxes: " + pickaxes)
-        }
-    });
-
-    //Description of pickaxes
-    pickButton.hover(function(){
-        var description = $("<p class='description animated fadeIn'>Add 1 stone per second per pickaxe!</p>");
-        topleft.append(description);
-    }, function(){
-        var description = $(".description.animated.fadeIn");
-        description.removeClass("fadeIn")
-        .addClass("fadeOut")
-        .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
-            description.remove();
-        });
-    });
-
-    //Description of axes
-    axeButton.hover(function(){
-        var description = $("<p class='description animated fadeIn'>Add 1 stick per second per axe!</p>");
-        topleft.append(description);
-    }, function(){
-        var description = $(".description.animated.fadeIn");
-        description.removeClass("fadeIn")
-        .addClass("fadeOut")
-        .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
-            description.remove();
-        });
-    });
-        
-    //Axes and sticks per second add
-    axeButton.on('click', function(){
-        if(p >= 1 && s >= 3){
-            sps++;
-            axes++;
-            p -= 1;
-            s -= 3;
-
-            $("#countAxes").text("Axes: " + axes);
-        }
-    });
-
 });
 
-//game loop - unusual for now
-/*
+//Description of pickaxes
+pickButton.hover(function(){
+    var description = $("<p class='description animated fadeIn'>" + valueString("descPickaxe") + "</p>");
+    topleft.append(description);
+}, function(){
+    var description = $(".description.animated.fadeIn");
+    description.removeClass("fadeIn")
+    .addClass("fadeOut")
+    .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
+        description.remove();
+    });
+});
+
+//Description of axes
+axeButton.hover(function(){
+    var description = $("<p class='description animated fadeIn'>" + valueString("descAxe") + "</p>");
+    topleft.append(description);
+}, function(){
+    var description = $(".description.animated.fadeIn");
+    description.removeClass("fadeIn")
+    .addClass("fadeOut")
+    .one("animationend oAnimationEnd mozAnimationEnd webkitAnimationEnd", function(){
+        description.remove();
+    });
+});
+
+//Achar string na array
+function valueString(name){
+    return strings.find(x => x.name == name).text
+}
+
+//game loop
 let lastTime;
 
 function callback(millis){
@@ -176,7 +167,6 @@ function callback(millis){
 }
 
 function update(dt){
-    canvas.height(topmiddle.height());
-    canvas.width(topmiddle.width());  
+    $("#pedras").text(valueString("countStones") + p);
+    $("#gravetos").text(valueString("countSticks") + s);
 }
-*/

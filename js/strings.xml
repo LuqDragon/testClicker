@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="descPickaxe">With a pickaxe you can get stone from rocks!</string>
+	<string name="descAxe">With a axe you can get wood from trees!</string>
+</resources>
