@@ -15,9 +15,27 @@ $(function(){
 
     callback();
 
-    //Load english strings
-    $.getJSON('en-us.json', function(data) {strings = data} );
-    
+    //Load string file according browser language
+    if(navigator.language == "pt-BR"){
+        $.getJSON('pt-BR.json', function(data) {
+            strings = data;
+            $("#axe").text(strings.axe);
+            $(".infoAxe").text(strings.valueAxe);
+            $("#pickaxe").text(strings.pickaxe);
+            $(".infoPickaxe").text(strings.valuePickaxe);
+            $("#tempo").text(strings.time);
+        });
+    }    
+    else{
+        $.getJSON('en-US.json', function(data) {
+            strings = data;
+            $("#axe").text(strings.axe);
+            $(".infoAxe").text(strings.valueAxe);
+            $("#pickaxe").text(strings.pickaxe);
+            $(".infoPickaxe").text(strings.valuePickaxe);
+            $("#tempo").text(strings.time);
+        });
+    }    
     //Tempo
     var time = setInterval(function(){
         time++
@@ -135,11 +153,27 @@ axeButton.hover(function(){
 });
 
 $(".pt-br").on('click', function(){
-    $.getJSON('pt-br.json', function(data) {strings = data} );
+    $.getJSON('pt-br.json', function(data) {
+        strings = data;
+        $("#axe").text(strings.axe);
+        $(".infoAxe").text(strings.valueAxe);
+        $("#pickaxe").text(strings.pickaxe);
+        $(".infoPickaxe").text(strings.valuePickaxe);
+        $("#tempo").text(strings.time);
+    });
+    
 });
 
 $(".en-us").on('click', function(){
-    $.getJSON('en-us.json', function(data) {strings = data} );
+    $.getJSON('en-us.json', function(data) {
+        strings = data;
+        $("#axe").text(strings.axe);
+        $(".infoAxe").text(strings.valueAxe);
+        $("#pickaxe").text(strings.pickaxe);
+        $(".infoPickaxe").text(strings.valuePickaxe);
+        $("#tempo").text(strings.time);
+    });
+    
 });
 
 //game loop
@@ -154,6 +188,7 @@ function callback(millis){
 }
 
 function update(dt){
+
     $("#pedras").text(strings.countStones + p);
     $("#gravetos").text(strings.countSticks + s);
 }

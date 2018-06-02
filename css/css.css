@@ -1,6 +1,6 @@
 *{
-    margin: 0;
     padding: 0;
+    margin: 0;
 }
 
 html{
@@ -70,7 +70,7 @@ html{
     font-size: 20px;
     top: 60px;
     white-space: normal;
-    width: 200px;
+    width: 250px;
 }
 
 #axeButton{
@@ -85,7 +85,7 @@ html{
     font-size: 20px;
     top: 160px;
     white-space: normal;
-    width: 200px;
+    width: 250px;
 }
 
 .description{
@@ -99,6 +99,10 @@ html{
     animation-duration: 0.5s;
 }
 
-.information{
+.infoPickaxe{
+    font-size: 15px;
+}
+
+.infoAxe{
     font-size: 15px;
 }
