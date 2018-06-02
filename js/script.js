@@ -15,27 +15,13 @@ $(function(){
 
     callback();
 
-    //Carregar o arquivo xml com todas as strings
-    //colocando na array strings[] 
-    $.ajax({
-        type: "GET",
-        url: "strings.xml",
-        dataType: "xml",
-        success: function(xml){
-            var result = $(xml).find("text").each(function(){
-                var string = {"name": $(this).attr("name"), "text": $(this).text()}
-                strings.push(string);
-            });
-        },
-        error:  function(error1, error2, error3){
-            console.log(error3);
-        }
-    });
-
+    //Load english strings
+    $.getJSON('en-us.json', function(data) {strings = data} );
+    
     //Tempo
     var time = setInterval(function(){
         time++
-        $("#tempo").text(valueString("time") + time + valueString("seconds"));
+        $("#tempo").text(strings.time + time + strings.seconds);
     }, 1000);
     
     //Geração de pedras e evento de click
@@ -63,7 +49,7 @@ $(function(){
                 if(controlPedra == 0){
                     controlPedra++;
                     p++;
-                    var text = $("<p class='textOverMouse'>" + valueString("popUpStone") + "</p>");
+                    var text = $("<p class='textOverMouse'>" + strings.popUpStone + "</p>");
                         text.css("top", parseInt(img.css("top"), 10) - img.height()/2)
                         .css("left", img.css("left"));
                         topmiddle.append(text);
@@ -100,7 +86,7 @@ $(function(){
                 if(controlGraveto == 0){
                     controlGraveto++;
                     s++;
-                    var text = $("<p class='textOverMouse'>" + valueString("popUpStick") +"</p>");
+                    var text = $("<p class='textOverMouse'>" + strings.popUpStick +"</p>");
                         text.css("top", parseInt(img.css("top"), 10) - img.height()/2)
                         .css("left", img.css("left"));
                         topmiddle.append(text);
@@ -118,15 +104,13 @@ $(function(){
                     });
                 }
             });
-
-
     }, 2500);
 
 });
 
 //Description of pickaxes
 pickButton.hover(function(){
-    var description = $("<p class='description animated fadeIn'>" + valueString("descPickaxe") + "</p>");
+    var description = $("<p class='description animated fadeIn'>" + strings.descPickaxe + "</p>");
     topleft.append(description);
 }, function(){
     var description = $(".description.animated.fadeIn");
@@ -139,7 +123,7 @@ pickButton.hover(function(){
 
 //Description of axes
 axeButton.hover(function(){
-    var description = $("<p class='description animated fadeIn'>" + valueString("descAxe") + "</p>");
+    var description = $("<p class='description animated fadeIn'>" + strings.descAxe + "</p>");
     topleft.append(description);
 }, function(){
     var description = $(".description.animated.fadeIn");
@@ -150,10 +134,13 @@ axeButton.hover(function(){
     });
 });
 
-//Achar string na array
-function valueString(name){
-    return strings.find(x => x.name == name).text
-}
+$(".pt-br").on('click', function(){
+    $.getJSON('pt-br.json', function(data) {strings = data} );
+});
+
+$(".en-us").on('click', function(){
+    $.getJSON('en-us.json', function(data) {strings = data} );
+});
 
 //game loop
 let lastTime;
@@ -167,6 +154,6 @@ function callback(millis){
 }
 
 function update(dt){
-    $("#pedras").text(valueString("countStones") + p);
-    $("#gravetos").text(valueString("countSticks") + s);
+    $("#pedras").text(strings.countStones + p);
+    $("#gravetos").text(strings.countSticks + s);
 }

@@ -1,0 +1,15 @@
+{
+	"descAxe":"Com um machado você pode pegar madeira direto de uma árvore!",
+	"descPickaxe":"Com uma picareta você pode pegar pedra direto de uma rocha!",
+	"pickaxe":"Picareta",
+	"axe":"Machado",
+	"valuePickaxe":"precisa: 2 pedras e 3 gravetos",
+	"valueAxe":"precisa: 1 pedra e 3 gravetos",
+	"countStones":"Pedras: ",
+	"countSticks":"Gravetos: ",
+	"sticks":"Gravetos: ",
+	"time":"Tempo de Jogo: ",
+	"popUpStone":"+1 Pedra",
+	"popUpStick":"+1 Graveto",
+	"seconds":" segundos"
+}

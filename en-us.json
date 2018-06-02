@@ -1,0 +1,15 @@
+{
+	"descAxe":"With a axe you can get wood from trees!",
+	"descPickaxe":"With a pickaxe you can get stones from rocks!",
+	"pickaxe":"Pickaxe",
+	"axe":"Axe",
+	"valuePickaxe":"need: 2 stones and 3 sticks",
+	"valueAxe":"need: 1 stone and 3 sticks",
+	"countStones":"Stones: ",
+	"countSticks":"Sticks: ",
+	"sticks":"Sticks: ",
+	"time":"Game Time: ",
+	"popUpStone":"+1 Stone",
+	"popUpStick":"+1 Stick",
+	"seconds":" seconds"
+}
